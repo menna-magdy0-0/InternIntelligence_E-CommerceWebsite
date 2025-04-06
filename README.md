@@ -1,178 +1,153 @@
-```markdown
-# 🛍️ E-Commerce API System
-
-A full-featured E-Commerce RESTful API built with **C# .NET Core** and **Entity Framework Core**. This system handles product, category, cart, and order management with secure **JWT authentication** and **role-based authorization** for customers and admins.
 
 ---
 
+```markdown
+# 🛒 E-Commerce API System
+
+A robust and scalable E-Commerce backend system built with **C# .NET 8**, **Entity Framework Core**, and **ASP.NET Core Identity**. It provides RESTful API endpoints for managing users, products, categories, carts, and orders, with clean architecture and modular design.
+
 ## 🚀 Features
 
-- 🧑‍💼 **User Authentication & Authorization**
-  - JWT-based login & registration
-  - Role-based access control (`Admin`, `Customer`)
+- 🧑‍💼 User Registration & Authentication (JWT)
+- 🔒 Role-based Authorization
+- 📦 Product & Category Management
+- 🛒 Shopping Cart Functionality
+- 📑 Order Creation & Tracking
+- ⚙️ Repository & Unit of Work Patterns
+- 🧪 Validation, Error Handling & API Responses
+- 🧵 Asynchronous CRUD Operations
+- 🧰 Clean Code Architecture (Separation of Concerns)
+- 🧪 Swagger UI for API Testing
 
-- 🛒 **Cart Management**
-  - Add, update, remove, and clear cart items
-  - Cart auto-creation on first access
+## 🧱 Technologies Used
 
-- 📦 **Product Management**
-  - Admins can create, update, and delete products
-  - Users can view all products and filter by category
-
-- 🗂️ **Category Management**
-  - Admin-only category creation, update, and deletion
-
-- 📃 **Order Management**
-  - Place orders from cart
-  - View own orders (Customers)
-  - Manage all orders (Admins)
-
-- 🧾 **Payment Mock**
-  - Simulated payment flow using a `PaymentRequest` DTO
+- [.NET 8](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
+- ASP.NET Core Web API
+- Entity Framework Core
+- ASP.NET Core Identity
+- JWT Authentication
+- AutoMapper
+- PostgreSQL
+- Swagger / Swashbuckle
+- FluentValidation (optional)
 
 ---
 
 ## 📁 Project Structure
 
-```
-ECommerceAPI/
-├── Controllers/
-│   ├── AuthController.cs
-│   ├── ProductsController.cs
-│   ├── CategoriesController.cs
-│   ├── CartController.cs
-│   └── OrdersController.cs
-├── Models/
-│   ├── ApplicationUser.cs
-│   ├── Product.cs
-│   ├── Category.cs
-│   ├── Cart.cs
-│   ├── CartItem.cs
-│   ├── Order.cs
-│   ├── OrderItem.cs
-│   └── DTOs/
-├── Repositories/
-│   ├── Interfaces/
-│   └── Implementations/
-├── Data/
-│   └── ApplicationDbContext.cs
-├── Services/
-├── Program.cs
-└── Startup.cs
+```text
+ECommerce.API/
+│
+├── Controllers/                # API Endpoints
+├── Data/                       # ApplicationDbContext & Seed Data
+├── Models/                     # Domain Entities
+├── Dtos/                       # Data Transfer Objects
+├── Interfaces/                 # Repositories Interfaces
+├── Repositories/              # Repositories Implementations
+├── Services/                  # Business Logic
+├── Helpers/                   # Custom Response Wrappers, Pagination, etc.
+├── Mappings/                  # AutoMapper Profiles
+├── Middlewares/               # Custom Exception Handling Middleware
+└── Program.cs / appsettings.json
 ```
 
 ---
 
-## 🔐 Authentication & Roles
+## 🔐 Authentication & Authorization
 
-### Roles:
-- `Admin`: Has access to full product/category/order management.
-- `Customer`: Can browse products, manage their cart, and place orders.
+- **JWT-based** authentication
+- Secure login and registration with ASP.NET Core Identity
+- Role-based access control for Admin, User, etc.
 
-### JWT Authentication:
-- Issued at login with claims (`userId`, `email`, `role`)
-- Stored on the client and sent via the `Authorization: Bearer <token>` header
-
----
-
-## 🔧 Technologies Used
-
-- **ASP.NET Core 7**
-- **Entity Framework Core**
-- **SQL Server**
-- **JWT (Json Web Token)**
-- **Identity (User Management)**
-- **AutoMapper**
-- **Swagger (API Documentation)**
-
----
-
-## 🛠️ Setup & Installation
-
-### 1. Clone the Repository
-```bash
-git clone https://github.com/your-username/ecommerce-api.git
-cd ecommerce-api
-```
-
-### 2. Update Database Connection
-
-In `appsettings.json`, update your connection string:
 ```json
-"ConnectionStrings": {
-  "DefaultConnection": "Server=localhost;Database=ECommerceDb;Trusted_Connection=True;MultipleActiveResultSets=true"
+{
+  "token": "your-jwt-token",
+  "expiration": "2025-12-31T23:59:59"
 }
 ```
 
-### 3. Apply Migrations & Seed Database
-```bash
-dotnet ef database update
-```
-
-### 4. Run the API
-```bash
-dotnet run
-```
-
-### 5. Swagger UI
-Navigate to:
-```
-https://localhost:<port>/swagger
-```
-To explore and test all endpoints.
-
 ---
 
-## ✅ Sample Endpoints
+## 🔄 Sample API Endpoints
 
-### 🔐 Authentication
 ```http
 POST /api/auth/register
 POST /api/auth/login
-```
-
-### 📦 Products
-```http
-GET /api/products
-GET /api/products/{id}
-POST /api/products         (Admin only)
-PUT /api/products/{id}     (Admin only)
-DELETE /api/products/{id}  (Admin only)
-```
-
-### 🗂️ Categories
-```http
-GET /api/categories
-POST /api/categories        (Admin only)
-PUT /api/categories/{id}    (Admin only)
-DELETE /api/categories/{id} (Admin only)
-```
-
-### 🛒 Cart
-```http
-GET /api/cart
+GET  /api/products
+POST /api/products           (Admin only)
+GET  /api/categories
 POST /api/cart/add
-PUT /api/cart/update/{itemId}
-DELETE /api/cart/remove/{itemId}
-DELETE /api/cart/clear
-```
-
-### 🧾 Orders
-```http
-GET /api/orders
 POST /api/orders/create
 ```
 
 ---
 
-## 🧪 Future Enhancements
+## 🔧 Getting Started
 
-- ✅ Refresh token mechanism
-- ✅ Pagination and filtering support for products
-- 🟡 Product image upload & management
-- 🟡 Integration with Stripe/PayPal for real payments
-- 🟡 User profile management
-- 🟡 Admin dashboard statistics
+### ✅ Prerequisites
+
+- [.NET 8 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
+- PostgreSQL installed locally or using Docker
+
+### 📦 Installation Steps
+
+1. **Clone the repository**
+
+```bash
+git clone https://github.com/your-username/ecommerce-api.git
+cd ecommerce-api
+```
+
+2. **Update the database connection**
+
+Edit `appsettings.json`:
+
+```json
+"ConnectionStrings": {
+  "DefaultConnection": "Host=localhost;Database=ECommerceDb;Username=postgres;Password=yourpassword"
+}
+```
+
+3. **Run EF Core Migrations**
+
+```bash
+dotnet ef database update
+```
+
+4. **Run the application**
+
+```bash
+dotnet run
+```
+
+The API will be available at: `https://localhost:5001` or `http://localhost:5000`
 
 ---
 
+## 📘 API Documentation
+
+Swagger UI is available at:
+
+```bash
+https://localhost:5001/swagger
+```
+
+Explore and test endpoints directly from your browser.
+
+---
+
+## 🧪 Testing
+
+Use Postman or Swagger to test:
+
+- User Registration/Login
+- Adding Products/Categories
+- Managing Cart
+- Creating Orders
+
+---
+
+## 🙋‍♀️ Author
+
+**Menna Magdy**  
+Software Engineer | .NET Backend Developer  
